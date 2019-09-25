@@ -113,7 +113,8 @@ Una vez realizado los anteriores pasos ya estamos listo para subir los artefacto
     </settings>
 
 ## Ejecutar Maven
-
+Iniciamos ejecutando los siguientes comandos:
+    
     $ mvn clean
     $ mvn release:prepare
     What is the release version for "AProject"? (com.github.davidpdp:AProject) 0.0.1: :
@@ -122,5 +123,23 @@ Una vez realizado los anteriores pasos ya estamos listo para subir los artefacto
     
 ![I1](./img/mvn6.png)
     
-    mvn release:perform
+Después procedemos a subirlos al repositorio de Nexus.
+> **Nota:** Tener en cuenta que a veces el servicio no se encuentra disponible por lo que errores como Timeout son normales y se solucionan esperando a que el servicio vuelva a estar disponible.
+
+
+    $ mvn release:perform
     
+![I1](./img/mvn7.png)
+    
+Verificamos que haya subido correctamente buscandolo en [Nexus](https://oss.sonatype.org/#welcome).
+
+![I1](./img/mvn8.png)
+
+Una vez verificamos procedemos a escribir un comentario en Jira para notificar el correcto despliegue y esperamos a que inicien la sincronización con el servidor central, esto toma un par de horas.
+
+![I1](./img/mvn9.png)
+
+Por último, podemos verificar que nuestro proyecto se encuentra subido en el repositorio de Maven:
+
+
+Puedes consultar la traza del ticket de [Jira](https://issues.sonatype.org/browse/OSSRH-51849) que hemos utilizado para este ejemplo.
