@@ -86,9 +86,41 @@ Una vez ejecutado este comando debe esperar hasta que se sincronice la llave en 
     https://pgp.mit.edu/pks/lookup?op=get&search=0x8F8B03A46E7A13E1
 Confirme que coincide la llave encontrada con la que tiene en su equipo. Para revisar la llave de su equipo ejecute el siguiente comando:
 
-    gpg --armor --export 8f8b03a46e7a13e1
+    $ gpg --armor --export 8f8b03a46e7a13e1
 
 ## Configurar POM
-Una vez realizado los anteriores pasos ya estamos listo para subir los artefactos. Para esto se adjunta un archivo [POM](). También se debe configurar el archivo settings que se encuentra en el directorio .m2 que crea localmente Maven.
+Una vez realizado los anteriores pasos ya estamos listo para subir los artefactos. Para esto se adjunta un archivo [POM](https://github.com/DavidPDP/MavenTest/blob/master/pom.xml). También se debe configurar el archivo settings que se encuentra en el directorio .m2 que crea localmente Maven, remplaza donde estén los corchetes [] eliminandolos y poniendo lo que se solicita.
+
+    <settings>
+      <servers>
+        <server>
+          <id>ossrh</id>
+          <username>[jira-username]</username>
+          <password>[jira-password]</password>
+        </server>
+      </servers>
+      <profiles>
+        <profile>
+          <id>ossrh</id>
+          <activation>
+            <activeByDefault>true</activeByDefault>
+          </activation>
+          <properties>
+            <gpg.passphrase>[gpg-password]</gpg.passphrase>
+          </properties>
+        </profile>
+      </profiles>
+    </settings>
 
 ## Ejecutar Maven
+
+    $ mvn clean
+    $ mvn release:prepare
+    What is the release version for "AProject"? (com.github.davidpdp:AProject) 0.0.1: :
+    What is SCM release tag or label for "AProject"? (com.github.davidpdp:AProject) AProject-0.1.0: :
+    What is the new development version for "AProject"? (com.github.davidpdp:AProject) 0.1.1-SNAPSHOT: :
+    
+![I1](./img/mvn6.png)
+    
+    mvn release:perform
+    
